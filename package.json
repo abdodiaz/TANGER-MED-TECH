@@ -1,0 +1,29 @@
+{
+  "name": "tanger-med-tech",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "serv": "nodmon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdodiaz/TANGER-MED-TECH.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdodiaz/TANGER-MED-TECH/issues"
+  },
+  "homepage": "https://github.com/abdodiaz/TANGER-MED-TECH#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.2.1",
+    "validator": "^13.7.0"
+  }
+}
