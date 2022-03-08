@@ -16,11 +16,9 @@ app.get("/",(req,res)=>{
     res.send("welcom to ")
 })
 app.use('/user',require("./routes/authRoutes"));
+app.use('/systeme',require("./routes/systemeRoutes"))
 
-app.use('/routes',require("./routes/ExporteRoutes"))
 // port run
 app.listen (PORT,async () => {
     console.log(`Server is Running in Port: ${PORT} http://localhost:${PORT}`);
-  
-
 })

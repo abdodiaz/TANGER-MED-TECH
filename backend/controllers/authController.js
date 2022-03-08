@@ -17,7 +17,7 @@ module.exports.signup_post =async({name,email,pass,nationality,organisation,role
     try{
      
      const salt = await bcrypt.genSalt(10)
-      const password = await bcrypt.hash(pass, salt)
+      const password = pass
       const user=await User.create({name,email,password,nationality,organisation,role});
       return user
     
@@ -30,7 +30,7 @@ module.exports.signup_post =async({name,email,pass,nationality,organisation,role
 module.exports.login_post =async({email,pass})=>{
   try {
     const salt = await bcrypt.genSalt(10)
-    const password = await bcrypt.hash(pass, salt)
+    const password = pass
     console.log({ email, password })
     let result= await User.findOne({email,password})
     console.log(result)

@@ -1,9 +1,7 @@
-const routerex = require("express").Router()
+const {Router}=require('express');
+const router = Router();
 
 const {systemeroutes} = require("./systemeRoutes")
 
-routerex.use(systemeroutes)
+Router.use(systemeroutes)
 
-module.exports={
-    routerex
-}

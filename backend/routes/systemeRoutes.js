@@ -1,6 +1,6 @@
 const {addsysteme,getsystemeById,getAllsystem,deletesysteme,updatesysteme} = require("../controllers/SystemeController")
-const {Router}=require('express');
-const router = Router();
+const router =require('express').Router();
+
 
 
 router.post('/addsysteme',async(req,res)=>{
@@ -31,6 +31,4 @@ router.post("/updatesysteme", async (req, res) => {
 })
 
 
-module.exports={
-    systemeroutes:router
-}
+module.exports=router

@@ -1,4 +1,4 @@
-const { system} = require("../models/system")
+const {system} = require("../models/Systeme")
 
 
 const addsysteme = async (data) => {
