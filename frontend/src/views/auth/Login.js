@@ -1,10 +1,44 @@
-import React, {useState} from "react";
-import { Link } from "react-router-dom";
-
+import React, {useEffect,useState} from "react";
+import { Link, useNavigate  } from "react-router-dom";
+import axios from "axios";
 export default function Login() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const[user,setUser]=useState({Email:'',Password:''})
-  const[error,setError]=useState("")
+
+  //check tokecn
+
+  useEffect(() => {
+
+    if (localStorage.getItem("token")) {
+      return navigate("/")
+    }
+  }, [])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+    try {
+      let { data } = await axios.post("http://localhost:5000/login", {
+        email,
+        password,
+      });
+
+      setLoading(false);
+      let { _id, token } = data
+      localStorage.setItem("token", token)
+      localStorage.setItem("id", _id)
+      delete data.token
+      navigate("/");
+
+    } catch (err) {
+      toast.error(err.response.data);
+      setLoading(false);
+    }
+  };
   return (
     <>
       <div className="container mx-auto px-4 h-full">
