@@ -1,25 +1,26 @@
 import React, {useEffect,useState} from "react";
-import { Link, useNavigate  } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
-export default function Login() {
-  const navigate = useNavigate();
+export const Login=()=> {
+  const history = useHistory();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
 
-  //check tokecn
+  //check token
 
   useEffect(() => {
 
     if (localStorage.getItem("token")) {
-      return navigate("/")
+      return history.push("/admin")
     }
   }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+console.log("sdfsdf")
     setLoading(true);
     try {
       let { data } = await axios.post("http://localhost:5000/login", {
@@ -32,10 +33,9 @@ export default function Login() {
       localStorage.setItem("token", token)
       localStorage.setItem("id", _id)
       delete data.token
-      navigate("/");
+      history.push("/admin");
 
     } catch (err) {
-      toast.error(err.response.data);
       setLoading(false);
     }
   };
@@ -56,7 +56,7 @@ export default function Login() {
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 
-                <form>
+                <form onSubmit={(e) => handleSubmit(e)} >
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -66,6 +66,9 @@ export default function Login() {
                     </label>
                     <input
                       type="email"
+                      id="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
                     />
@@ -80,6 +83,9 @@ export default function Login() {
                     </label>
                     <input
                       type="password"
+                      id="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
                     />
@@ -99,8 +105,9 @@ export default function Login() {
 
                   <div className="text-center mt-6">
                     <button
+                      type="submit"
+                      disabled={!email || !password || loading}
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
                     >
                       Sign In
                     </button>

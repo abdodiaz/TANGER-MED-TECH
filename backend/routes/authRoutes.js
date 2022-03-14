@@ -15,11 +15,11 @@ let secretKey = "abc123";
 router.post('/login', async (req,res) => {
     let token = ''
     console.log(req.body); 
-    let { _id, email, name } = await authController.login_post(req.body)
-    if (_id && email && name ) {
-        token = generateAccessToken({ _id, email, name  }, secretKey, "admin")
+    let {result} = await authController.login_post(req.body)
+    if (_id && email && password ) {
+        token = generateAccessToken({ _id, email, password }, secretKey, "admin")
     }
-    res.json(token)
+    res.json(password)
 })
 
 module.exports=router;

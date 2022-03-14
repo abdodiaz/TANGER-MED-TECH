@@ -1,6 +1,44 @@
-import React from "react";
 
-export default function Register() {
+import React, { useEffect, useState } from "react"
+import { toast } from 'react-toastify';
+
+import axios from "axios"
+import {  useHistory} from "react-router-dom";
+
+export const  Register=()=> {
+  const history = useHistory()
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+      if (localStorage.getItem("token")) {
+          return history("/admin")
+      }
+  }, [])
+  const handleSubmit = async (e) => {
+      e.preventDefault()
+      setLoading(true)
+      try {
+          await axios.post("http://localhost:5000/register", {
+              name,
+              email,
+              password
+          })
+
+          toast.success("Registration Successful . pls login ")
+          setLoading(false)
+          history("/admin");
+
+      } catch (err) {
+          toast.error(err.response.data)
+          setLoading(false)
+      }
+
+  }
+
+
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -18,7 +56,7 @@ export default function Register() {
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                 
-                <form>
+                <form onSubmit={(e) => handleSubmit(e)}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -27,7 +65,9 @@ export default function Register() {
                       Name
                     </label>
                     <input
-                      type="email"
+                      type="text"
+                      id="name"
+                      value={name} onChange={(e) => setName(e.target.value)}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Name"
                     />
@@ -42,6 +82,8 @@ export default function Register() {
                     </label>
                     <input
                       type="email"
+                      id="email"
+                      value={email} onChange={(e) => setEmail(e.target.value)}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
                     />
@@ -55,6 +97,8 @@ export default function Register() {
                       Password
                     </label>
                     <input
+                    id="password"
+                    value={password} onChange={(e) => setPassword(e.target.value)}
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
@@ -83,8 +127,10 @@ export default function Register() {
 
                   <div className="text-center mt-6">
                     <button
+                      type="submit"
+                      disabled={ !name || !email || !password || loading}
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                     
                     >
                       Create Account
                     </button>

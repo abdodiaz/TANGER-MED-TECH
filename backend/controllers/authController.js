@@ -29,7 +29,7 @@ module.exports.signup_post =async({name,email,pass,nationality,organisation,role
 }
 module.exports.login_post =async({email,pass})=>{
   try {
-    const salt = await bcrypt.genSalt(10)
+
     const password = pass
     console.log({ email, password })
     let result= await User.findOne({email,password})
