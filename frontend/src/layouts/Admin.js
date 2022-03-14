@@ -13,11 +13,11 @@ import FooterAdmin from "components/Footers/FooterAdmin.js";
 import Dashboard from "views/admin/Dashboard.js";
 
 
-import Port from "views/admin/Port";
-import Quay from "views/admin/Quay";
-import Reservation from "views/admin/Reservation";
-import Ships from "views/admin/Ships";
-import Systeme from "views/admin/Systeme";
+import {Port} from "views/admin/Port";
+import {Quay} from "views/admin/Quay";
+import {Reservation} from "views/admin/Reservation";
+import {Ships} from "views/admin/Ships";
+import {Systeme} from "views/admin/Systeme";
 
 export default function Admin() {
   return (

@@ -7,12 +7,11 @@ import React from "react";
 export default function Dashboard() {
   return (
     <>
-      <div className="flex flex-wrap">
-        <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
-        <form>
-        dashboard
-        </form>
-        </div>
+      <div className="flex flex-wrap mt-50">
+      <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
+                
+    dashboard
+       </div>
       </div>
   
     </>

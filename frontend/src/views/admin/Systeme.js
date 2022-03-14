@@ -4,7 +4,7 @@ import React from "react";
 import CardTable from "components/Cards/CardTable.js";
 
 
-export default function Systeme() {
+export const Systeme=()=> {
   return (
     <>
       <div className="flex flex-wrap">

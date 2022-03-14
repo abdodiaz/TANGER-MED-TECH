@@ -4,7 +4,7 @@ import React from "react";
 import CardTable from "components/Cards/CardTable.js";
 
 
-export default function Quay() {
+export const  Quay=()=> {
   return (
     <>
       <div className="flex flex-wrap">
