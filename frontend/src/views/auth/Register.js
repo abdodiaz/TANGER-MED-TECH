@@ -1,6 +1,5 @@
 
 import React, { useEffect, useState } from "react"
-import { toast } from 'react-toastify';
 
 import axios from "axios"
 import {  useHistory} from "react-router-dom";
@@ -14,7 +13,7 @@ export const  Register=()=> {
 
   useEffect(() => {
       if (localStorage.getItem("token")) {
-          return history("/admin")
+          return history.push("/admin")
       }
   }, [])
   const handleSubmit = async (e) => {
@@ -27,12 +26,10 @@ export const  Register=()=> {
               password
           })
 
-          toast.success("Registration Successful . pls login ")
           setLoading(false)
           history("/admin");
 
       } catch (err) {
-          toast.error(err.response.data)
           setLoading(false)
       }
 

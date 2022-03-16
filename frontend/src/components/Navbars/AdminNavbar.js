@@ -5,7 +5,7 @@ import UserDropdown from "components/Dropdowns/UserDropdown.js";
 const logout=(e)=>{
   e.preventDefault();
   localStorage.removeItem("token");
-
+  window.location.href ="/auth/login"
 
 }
 

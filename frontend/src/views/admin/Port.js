@@ -1,41 +1,49 @@
 
 
 import React, { useEffect, useState } from "react"
-import { toast } from 'react-toastify';
+
+import {  useHistory} from "react-router-dom";
 
 import axios from "axios"
 
 // components
 
-//import CardTable from "components/Cards/CardTable";
+import CardTable from "components/Cards/CardTable";
+import useFetch from "Hooks/UseFetch";
 
 
 
 export const Port=()=> {
-  
+
   const [name, setName] = useState('')
-  const [descreption, setDescription] = useState('')
+  const [portdata, setPortdata] = useState('')
+  const [descreption, setDescription] = useState(0)
   const [loading, setLoading] = useState(false)
   const handleSubmit = async (e) => {
-    
     e.preventDefault()
     setLoading(true)
+
     try {
         await axios.post("http://localhost:5000/addport", {
             name,
-            descreption
+            description:descreption
+            
         })
-
-        toast.success("Registration Successful . pls login ")
         setLoading(false)
-       
+        window.location.href ="/admin/port"
 
     } catch (err) {
-        toast.error(err.response.data)
         setLoading(false)
     }
 
 }
+const { error, data: port } = useFetch('http://localhost:5000/getAllPorts')
+
+useEffect(()=>{
+  if(port){
+    setPortdata(port)
+  }
+},[port])
   return (
     <>
       <div className="flex flex-wrap mt-20 ">
@@ -64,11 +72,11 @@ export const Port=()=> {
                       Descreption
                     </label>
                     <input
-                      type="Text"
+                      type="number"
                       id="descreption"
                       value={descreption} onChange={(e) => setDescription(e.target.value)}
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                      placeholder="Descreption"
+                      placeholder="" min={0}max={1}
                     />
                   </div>
 
@@ -83,9 +91,9 @@ export const Port=()=> {
                     </button>
                   </div>
                 </form>
-        {/* <div className="w-full mb-12 px-4">
-          <CardTable color="dark" />
-        </div> */}
+                <div className="w-full mb-12 px-4">
+        {portdata &&  <CardTable color="dark" theads={["_Id","Name","Description"]} data={portdata} error={error} />}
+        </div>
 
       </div>
   
